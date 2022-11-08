@@ -4,11 +4,13 @@ package com.example.mytaste
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
 
-     fun onCreate(savedInstanceState: Bundle?) {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -25,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         btn_submit.setOnClickListener {
             val user_name = et_user_name.text;
             val password = et_password.text;
-
 
 
         }
