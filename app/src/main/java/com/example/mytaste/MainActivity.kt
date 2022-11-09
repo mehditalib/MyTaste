@@ -1,6 +1,7 @@
 package com.example.mytaste
 
 //import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -13,6 +14,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        /* Call map activity
+        val intent = Intent(this, MapActivity::class.java)
+        startActivity(intent)*/
 
         var et_user_name = findViewById(R.id.et_user_name) as EditText
         var et_password = findViewById(R.id.et_password) as EditText
