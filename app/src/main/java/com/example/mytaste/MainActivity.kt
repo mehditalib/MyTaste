@@ -2,10 +2,13 @@ package com.example.mytaste
 
 //import android.support.v7.app.AppCompatActivity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import java.util.jar.Manifest
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        /* Call map activity
+        /*Call map activity
         val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)*/
 
@@ -34,5 +37,8 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
+
     }
+
 }
