@@ -1,21 +1,18 @@
-package com.example.mytaste
+package com.example.mytaste.utils
 
-import android.R
+import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.createBitmap
-import androidx.core.graphics.drawable.RoundedBitmapDrawable
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import androidx.core.graphics.set
 import androidx.preference.PreferenceManager
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.OnTokenCanceledListener
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -25,10 +22,13 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus
 import org.osmdroid.views.overlay.OverlayItem
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+import com.example.mytaste.async.RetrieveRestaurants
+import com.example.mytaste.pojo.RestaurantsList
 
 
 class MapActivity : AppCompatActivity() {
-    private lateinit var map: MapView
+    lateinit var map: MapView
+    lateinit var viewModel: RetrieveRestaurants
 
     private val TAG = "MapActivity"
     private val LOCATION_REQUEST_CODE = 10001
@@ -80,7 +80,7 @@ class MapActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getLastLocation()
         }
         else{
@@ -90,7 +90,16 @@ class MapActivity : AppCompatActivity() {
 
     private fun getLastLocation(){
         Log.d(TAG, "Start lastLocation")
-        val locationTask = fusedLocationProviderClient.lastLocation
+        //val locationTask = fusedLocationProviderClient.lastLocation
+        val locationTask = fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, object : CancellationToken(){
+            override fun isCancellationRequested(): Boolean {
+                return false
+            }
+
+            override fun onCanceledRequested(p0: OnTokenCanceledListener): CancellationToken {
+                return CancellationTokenSource().token
+            }
+        })
 
         locationTask.addOnSuccessListener { location ->
             if (location != null) {
@@ -112,9 +121,12 @@ class MapActivity : AppCompatActivity() {
                 myLocationoverlay.setPersonIcon(icon)
                 map.overlays.add(myLocationoverlay)
 
+                displayRestaurants(locationTask.result.latitude, locationTask.result.longitude)
+
             } else {
                 Log.d(TAG, "onSuccess: Location was null...")
                 map.controller.setCenter(GeoPoint(50.636842412658126, 3.0635913872047054))
+                displayRestaurants(50.636842412658126, 3.0635913872047054)
             }
         }
 
@@ -122,13 +134,13 @@ class MapActivity : AppCompatActivity() {
     }
 
     private fun askLocationPermission(){
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION))
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
                 Log.d(TAG, "askLocationPermission: you should show an alert dialog...")
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
         }
         else{
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
         }
     }
 
@@ -143,7 +155,41 @@ class MapActivity : AppCompatActivity() {
             else{
                 // Permission not granted
                 map.controller.setCenter(GeoPoint(50.636842412658126, 3.0635913872047054))
+                displayRestaurants(50.636842412658126, 3.0635913872047054)
             }
         }
+    }
+
+    fun displayRestaurants(latitude : Double, longitude : Double){
+        Thread {
+            RetrieveRestaurants().setCurrentRestaurants(latitude, longitude)
+            var items = ArrayList<OverlayItem>()
+
+            for (i in RestaurantsList.restaurants.indices) {
+                items.add(
+                    OverlayItem(
+                        RestaurantsList.restaurants[i].name,
+                        RestaurantsList.restaurants[i].address,
+                        RestaurantsList.restaurants[i].localisation
+                    )
+                )
+            }
+
+            val listenerInter = object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
+                override fun onItemSingleTapUp(index: Int, item: OverlayItem?): Boolean {
+                    return true
+                }
+
+                override fun onItemLongPress(index: Int, item: OverlayItem?): Boolean {
+                    return false
+                }
+            }
+
+            var mOverlay =
+                ItemizedOverlayWithFocus<OverlayItem>(applicationContext, items, listenerInter)
+
+            mOverlay.setFocusItemsOnTap(true)
+            map.overlays.add(mOverlay)
+        }.start()
     }
 }

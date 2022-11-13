@@ -1,14 +1,10 @@
-package com.example.mytaste
+package com.example.mytaste.utils
 
 //import android.support.v7.app.AppCompatActivity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import java.util.jar.Manifest
+import com.example.mytaste.R
 
 
 class MainActivity : AppCompatActivity() {

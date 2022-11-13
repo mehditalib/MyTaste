@@ -18,14 +18,14 @@
         android:theme="@style/Theme.MyTaste"
         tools:targetApi="31">
         <activity
-            android:name=".MapActivity"
+            android:name=".utils.MapActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".utils.LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.MyTaste.NoActionBar">
@@ -34,7 +34,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".utils.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

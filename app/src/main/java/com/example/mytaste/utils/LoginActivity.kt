@@ -1,7 +1,8 @@
-package com.example.mytaste
+package com.example.mytaste.utils
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.mytaste.R
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
