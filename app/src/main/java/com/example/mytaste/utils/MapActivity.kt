@@ -5,6 +5,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore.Images.Media.getBitmap
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
@@ -62,11 +63,12 @@ class MapActivity : AppCompatActivity(), View.OnClickListener{
 
         Log.d(this.javaClass.name, "Resume")
         super.onResume()
-        var preferences = getSharedPreferences("datas", MODE_PRIVATE)
-        ///map.controller.setCenter(GeoPoint(Double.Companion.fromBits(preferences.getLong("centerLat", 50.636842412658126.toRawBits())), Double.Companion.fromBits(preferences.getLong("centerLon", 3.0635913872047054.toRawBits()))))
-        map.controller.animateTo(GeoPoint(preferences.getString("centerLat", "50.636842412658126")!!.toDouble(), preferences.getString("centerLon", "3.0635913872047054")!!.toDouble()))
         map.onResume()
-        displayRestaurants()
+        /*var preferences = getSharedPreferences("datas", MODE_PRIVATE)
+        ///map.controller.setCenter(GeoPoint(Double.Companion.fromBits(preferences.getLong("centerLat", 50.636842412658126.toRawBits())), Double.Companion.fromBits(preferences.getLong("centerLon", 3.0635913872047054.toRawBits()))))
+        Log.d(this.javaClass.name, "AnimateTo my position")
+        map.controller.animateTo(GeoPoint(preferences.getString("centerLat", "50.636842412658126")!!.toDouble(), preferences.getString("centerLon", "3.0635913872047054")!!.toDouble()))
+        displayRestaurants()*/
     }
 
 
@@ -78,9 +80,7 @@ class MapActivity : AppCompatActivity(), View.OnClickListener{
         if(preferences.getBoolean("myLoc", false)) {
 
             val myLocationOverlay = MyLocationNewOverlay(map)
-            myLocationOverlay.enableFollowLocation()
             myLocationOverlay.enableMyLocation()
-
             val marker : Marker = Marker(map);
             marker.position = GeoPoint(Double.Companion.fromBits(preferences.getLong("myLat", 50.636842412658126.toRawBits())), Double.Companion.fromBits(preferences.getLong("myLon", 3.0635913872047054.toRawBits())))
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
@@ -101,6 +101,7 @@ class MapActivity : AppCompatActivity(), View.OnClickListener{
                     RestaurantsList.restaurants!![i].address,
                     RestaurantsList.restaurants!![i].localisation
                 )
+
                 if (!items.contains(newOverlayItem)) {
                     items.add(newOverlayItem)
                 }

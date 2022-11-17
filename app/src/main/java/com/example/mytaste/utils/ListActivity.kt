@@ -125,13 +125,14 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
             var latitude : String
             var longitude : String
             if(preferences.getBoolean("myLoc", false)) {
-                latitude = preferences.getLong("myLat", 50.636842412658126.toLong()).toString()
-                longitude = preferences.getLong("myLon", 3.0635913872047054.toLong()).toString()
+                latitude = Double.Companion.fromBits(preferences.getLong("myLat", 50.636842412658126.toRawBits())).toString()
+                longitude = Double.Companion.fromBits(preferences.getLong("myLon", 3.0635913872047054.toRawBits())).toString()
             }
             else{
                 latitude = "50.636842412658126"
                 longitude = "3.0635913872047054"
             }
+
             editor.putString("centerLat", latitude)
             editor.putString("centerLon", longitude)
             editor.commit()

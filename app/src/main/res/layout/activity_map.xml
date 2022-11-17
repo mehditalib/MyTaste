@@ -38,6 +38,8 @@
         android:id="@+id/worldMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alwaysDrawnWithCache="true"
+        android:animationCache="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

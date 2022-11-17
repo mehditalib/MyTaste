@@ -6,6 +6,9 @@
     <ListView
         android:id="@+id/restaurantsList"
         android:layout_width="match_parent"
-        android:layout_height="584dp" />
+        android:layout_height="584dp"
+        android:alwaysDrawnWithCache="true"
+        android:animateLayoutChanges="false"
+        android:animationCache="true" />
 </FrameLayout>
 
