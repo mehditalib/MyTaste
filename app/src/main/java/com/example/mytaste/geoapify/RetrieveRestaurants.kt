@@ -23,11 +23,11 @@ class RetrieveRestaurants {
     val TAG = "RetrieveRestaurants"
     lateinit var context : Context
 
-    fun getCurrentRestaurants() : MutableList<Restaurant> {
+    fun getCurrentRestaurants(latitude : Double, longitude : Double) : MutableList<Restaurant> {
 
         //var preferences: SharedPreferences? = MyTasteApplication().getPreferences()
-        var latitude : Double = 50.636842412658126
-        var longitude : Double = 3.06359138720470
+        /*var latitude : Double = 50.636842412658126
+        var longitude : Double = 3.06359138720470*/
 
         /*if (preferences != null && preferences!!.getBoolean("myLoc", false)) {
             latitude = Double.Companion.fromBits(preferences!!.getLong("centerLat", 50.636842412658126.toRawBits()))

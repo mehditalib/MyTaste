@@ -20,12 +20,13 @@ class RetrieveRestaurantsAsyncTask : AsyncTask<String, Void, MutableList<Restaur
         if (restaurants != null) {
             RestaurantsList.restaurants = restaurants
             listener.onRestaurantRetrieved()
-            Log.d("RetrieveTweetsAsyncTask", "Nombre de restaurants : " + restaurants.size);
+            Log.d(this.javaClass.name, "Nombre de restaurants : " + restaurants.size);
         }
         super.onPostExecute(restaurants)
     }
 
     override fun doInBackground(vararg coordonnees: String): MutableList<Restaurant> {
-        return RetrieveRestaurants().getCurrentRestaurants()
+        Log.d(this.javaClass.name, "In background : ${coordonnees[0]}  ${coordonnees[1]}")
+        return RetrieveRestaurants().getCurrentRestaurants(coordonnees[0].toDouble(), coordonnees[1].toDouble())
     }
 }

@@ -25,9 +25,20 @@ class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment{
     var latitude : String
     var longitude : String
 
-    constructor(){
-        this.latitude = ""
-        this.longitude = ""
+    constructor(latitude : String = "50.636842412658126", longitude : String = "3.0635913872047054"){
+        Log.d(this.javaClass.name, "Conctructor")
+        this.latitude = latitude
+        this.longitude = longitude
+    }
+
+    fun setCoord(latitude: String, longitude: String){
+        this.latitude = latitude
+        this.longitude = longitude
+    }
+
+    fun getRestaurants(){
+        retrieveRestaurantsAsyncTask = RetrieveRestaurantsAsyncTask(this)
+        retrieveRestaurantsAsyncTask.execute(latitude, longitude)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +60,12 @@ class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment{
     }
 
     override fun onStart() {
+        Log.d(this.javaClass.name, "Request Restaurants API")
         super.onStart()
         if(RestaurantsList.restaurants == null){
-            Log.d(this.javaClass.name, "Request Restaurants API")
 
             retrieveRestaurantsAsyncTask = RetrieveRestaurantsAsyncTask(this)
-            retrieveRestaurantsAsyncTask.execute()
+            retrieveRestaurantsAsyncTask.execute(latitude, longitude)
         }
     }
 

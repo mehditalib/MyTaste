@@ -6,31 +6,25 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import androidx.core.content.ContextCompat
 import com.example.mytaste.R
-import com.example.mytaste.async.RetrieveRestaurantsAsyncTask
 import com.example.mytaste.fragments.RestaurantFragmentRecyclerView
-import com.example.mytaste.geoapify.RetrieveRestaurants
 import com.example.mytaste.interfaces.RestaurantListener
 import com.example.mytaste.pojo.Restaurant
-import com.example.mytaste.pojo.RestaurantsList
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
-import io.ktor.http.*
 
 
 class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListener{
 
     private val TAG = "ListActivity"
     lateinit var fusedLocationProviderClient : FusedLocationProviderClient
+    lateinit var restaurantFragmentRecyclerView: RestaurantFragmentRecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +35,10 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
             val extras = intent.extras
             if (extras != null) {
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+                restaurantFragmentRecyclerView = RestaurantFragmentRecyclerView()
                 supportFragmentManager.beginTransaction().add(
                     R.id.containerList,
-                    RestaurantFragmentRecyclerView()
+                    restaurantFragmentRecyclerView
                 ).commit()
             }
         }
@@ -80,15 +75,13 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
 
             if (location != null) {
                 // We have a location
-                Log.d(
-                    TAG,
-                    "onSuccess find Localisation : " + locationTask.result.latitude + ", " + locationTask.result.longitude
-                )
+                Log.d(TAG, "onSuccess find Localisation : " + locationTask.result.latitude + ", " + locationTask.result.longitude)
                 latitude = locationTask.result.latitude.toString()
                 longitude = locationTask.result.longitude.toString()
                 editor.putLong("myLat", locationTask.result.latitude.toRawBits())
                 editor.putLong("myLon", locationTask.result.longitude.toRawBits())
                 editor.putBoolean("myLoc", true)
+                findViewById<View>(R.id.buttonMyPosition).visibility = View.VISIBLE
             } else {
                 Log.d(TAG, "onSuccess: Location was null...")
                 latitude = "50.636842412658126"
@@ -101,7 +94,6 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
         }
 
         locationTask.addOnFailureListener { e -> Log.e(TAG, "onFailure : " + e.localizedMessage) }
-        return
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -119,7 +111,7 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
             TODO("Implement logout")
             return
         }
-        if (view == findViewById(R.id.buttonGoToMap)) {
+        else if (view == findViewById(R.id.buttonGoToMap)) {
             var preferences = this.getSharedPreferences("datas", MODE_PRIVATE)
             var editor = preferences.edit()
             var latitude : String
@@ -139,7 +131,23 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
             startActivity(Intent(this, MapActivity::class.java))
             return
         }
+        else if(view == findViewById(R.id.buttonMyPosition)){
+            var preferences = getSharedPreferences("datas", MODE_PRIVATE)
 
+            if(preferences.getBoolean("myLoc", false)) {
+                var latitude = Double.Companion.fromBits(preferences.getLong("myLat", 50.636842412658126.toRawBits())).toString()
+                var longitude = Double.Companion.fromBits(preferences.getLong("myLon", 3.0635913872047054.toRawBits())).toString()
+
+                var editor = preferences.edit()
+                editor.putString("centerLat", latitude)
+                editor.putString("centerLon", longitude)
+                editor.commit()
+
+                Log.d(this.javaClass.name, "Button my position")
+                restaurantFragmentRecyclerView.setCoord(latitude, longitude)
+                restaurantFragmentRecyclerView.getRestaurants()
+            }
+        }
     }
 
     override fun onGoMap(r: Restaurant) {
