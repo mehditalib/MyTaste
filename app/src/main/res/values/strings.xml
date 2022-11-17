@@ -9,4 +9,18 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- Strings used for fragment_details -->
+    <string name="detail_name_fragment">Nom du restaurant : </string>
+    <string name="detail_address_fragment">Adresse : </string>
+    <string name="detail_description_fragment">Description : </string>
+    <string name="detail_contact_fragment">Contacter : </string>
+    <string name="detail_email_fragment">Mail : </string>
+    <string name="detail_website_fragment">Site : </string>
+    <string name="detail_phone_fragment">Appeler : </string>
+
+    <!-- String used for activity_main -->
+    <string name="disconnect_button">Déconnexion</string>
+    <string name="go_map_button">Voir la carte</string>
+
 </resources>
