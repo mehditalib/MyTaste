@@ -71,7 +71,7 @@
         android:id="@+id/NoAccountTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_account"
+        android:text="Créer un nouveau compte"
         android:layout_alignParentBottom="true"
         android:padding="5dp"
         android:layout_centerHorizontal="true"
