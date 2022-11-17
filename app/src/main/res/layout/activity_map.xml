@@ -29,6 +29,7 @@
         android:clickable="true"
         android:onClick="onClick"
         android:rotation="38"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="#FFFFFF"

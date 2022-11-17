@@ -1,6 +1,7 @@
 package com.example.mytaste.fragments
 
 import android.content.Context
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,8 +14,10 @@ import com.example.mytaste.async.RetrieveRestaurantsAsyncTask
 import com.example.mytaste.interfaces.RestaurantChangeListener
 import com.example.mytaste.interfaces.RestaurantListener
 import com.example.mytaste.pojo.RestaurantsList
+import com.example.mytaste.utils.ListActivity
 
-class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment{
+
+class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment {
 
     private var ARG_COLUMN_COUNT = "column-count"
     private var mColumnCount = 1
@@ -22,13 +25,13 @@ class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment{
     private lateinit var recylerView : RecyclerView
     private lateinit var retrieveRestaurantsAsyncTask: RetrieveRestaurantsAsyncTask
     private lateinit var listener : RestaurantListener
-    var latitude : String
-    var longitude : String
+    private lateinit var safeInstance : ListActivity
+    var latitude: String = "50.636842412658126"
+    var longitude: String = "3.0635913872047054"
 
-    constructor(latitude : String = "50.636842412658126", longitude : String = "3.0635913872047054"){
+    constructor(safeInstance : ListActivity) {
         Log.d(this.javaClass.name, "Conctructor")
-        this.latitude = latitude
-        this.longitude = longitude
+        this.safeInstance = safeInstance
     }
 
     fun setCoord(latitude: String, longitude: String){
@@ -49,12 +52,13 @@ class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment{
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view : View = inflater.inflate(R.layout.fragment_details_list_recycler, container, false)
+        val view : View = inflater.inflate(R.layout.fragment_details_list_recycler, container, false)
 
         if(view is RecyclerView){
             recylerView = view
             //recylerView.adapter = DetailsRecyclerViewAdapter(listener)
         }
+
 
         return view
     }
@@ -70,6 +74,9 @@ class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment{
     }
 
     override fun onRestaurantRetrieved() {
+        safeInstance.runOnUiThread(Runnable {
+            safeInstance.findViewById<View>(R.id.laodingAnim).visibility = View.GONE
+        })
         if(RestaurantsList.restaurants != null){
             recylerView.adapter = DetailsRecyclerViewAdapter(listener)
         }

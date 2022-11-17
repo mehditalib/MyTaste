@@ -35,7 +35,7 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
             val extras = intent.extras
             if (extras != null) {
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-                restaurantFragmentRecyclerView = RestaurantFragmentRecyclerView()
+                restaurantFragmentRecyclerView = RestaurantFragmentRecyclerView(this)
                 supportFragmentManager.beginTransaction().add(
                     R.id.containerList,
                     restaurantFragmentRecyclerView
@@ -47,7 +47,6 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
     override fun onStart() {
         super.onStart()
         getLocation()
-
     }
 
     private fun getLocation() {

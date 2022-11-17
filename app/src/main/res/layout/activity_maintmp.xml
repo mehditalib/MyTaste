@@ -5,6 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/containerList"
+        android:layout_width="389dp"
+        android:layout_height="0dp"
+        android:alwaysDrawnWithCache="true"
+        android:animationCache="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/laodingAnim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
+    </FrameLayout>
+
     <Button
         android:id="@+id/buttonDisconnect"
         android:layout_width="wrap_content"
@@ -47,17 +70,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/containerList"
-        android:layout_width="389dp"
-        android:layout_height="0dp"
-        android:alwaysDrawnWithCache="true"
-        android:animationCache="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,8 +76,10 @@ class MapActivity : AppCompatActivity(), View.OnClickListener{
     @RequiresApi(Build.VERSION_CODES.O)
     private fun displayMyLocation(){
         Log.d(this.javaClass.name, "dispayMyLoc")
+
         var preferences = getSharedPreferences("datas", MODE_PRIVATE)
         if(preferences.getBoolean("myLoc", false)) {
+            findViewById<View>(R.id.backToMyPisition).visibility = View.VISIBLE
 
             val myLocationOverlay = MyLocationNewOverlay(map)
             myLocationOverlay.enableMyLocation()
