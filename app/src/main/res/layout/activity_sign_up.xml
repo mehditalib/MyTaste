@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".utils.LoginActivity">
+    tools:context=".utils.SignUpActivity">
 
     <TextView
         android:id="@+id/titleLabelTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Connexion"
+        android:text="Inscription"
         style="@style/TextAppearance.MaterialComponents.Headline4"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Connectez vous à votre compte"
+        android:text="Créer un nouveau compte"
         android:layout_below="@id/titleLabelTv"
         style="@style/TextAppearance.MaterialComponents.Caption"/>
 
@@ -60,22 +60,12 @@
 
     <!--Login-->
     <Button
-        android:id="@+id/LoginBtn"
+        android:id="@+id/SignUpBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Se connecter"
+        android:text="S'inscrire"
         android:layout_below="@id/passwordTil"
         android:layout_marginTop="10dp"/>
-    <!--Créer compte-->
-    <TextView
-        android:id="@+id/NoAccountTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_account"
-        android:layout_alignParentBottom="true"
-        android:padding="5dp"
-        android:layout_centerHorizontal="true"
-        style="@style/TextAppearance.MaterialComponents.Caption"/>
 
 
 </RelativeLayout>

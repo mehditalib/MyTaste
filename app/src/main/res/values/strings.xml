@@ -22,5 +22,6 @@
     <!-- String used for activity_main -->
     <string name="disconnect_button">Déconnexion</string>
     <string name="go_map_button">Voir la carte</string>
+    <string name="no_account">Créer un compte</string>
 
 </resources>
