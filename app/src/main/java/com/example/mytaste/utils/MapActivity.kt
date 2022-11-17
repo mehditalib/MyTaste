@@ -131,7 +131,7 @@ class MapActivity : AppCompatActivity(), View.OnClickListener{
         if(view == findViewById(R.id.buttonReturnList)){
             this.finish()
         }
-        if(view == findViewById(R.id.backToMyPisition)){
+        else if(view == findViewById(R.id.backToMyPisition)){
             Log.d(this.javaClass.name, "onClick go to my position")
             var preferences = getSharedPreferences("datas", MODE_PRIVATE)
             if(preferences.getBoolean("myLoc", false)) {
