@@ -10,7 +10,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.mytaste.R
-import com.example.mytaste.databinding. ActivityListBinding
+import com.example.mytaste.databinding.ActivityMainBinding
 import com.example.mytaste.fragments.RestaurantFragmentRecyclerView
 import com.example.mytaste.interfaces.RestaurantListener
 import com.example.mytaste.pojo.Restaurant
@@ -29,7 +29,7 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
     private lateinit var restaurantFragmentRecyclerView: RestaurantFragmentRecyclerView
 
     //ViewBinding
-    private lateinit var binding: ActivityListBinding
+    private lateinit var binding: ActivityMainBinding
     //ActionBar
     private lateinit var actionBar: ActionBar
     //FirebaseAuth
@@ -38,7 +38,8 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityListBinding.inflate(layoutInflater)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
 
         //config ActionBar
@@ -99,7 +100,7 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
         })
 
         locationTask.addOnSuccessListener { location ->
-            // Store localisation in preferenes to use it in hte ap activity
+            // Store localisation in preferences to use it in hte ap activity
             var preferences = this.getSharedPreferences("datas", MODE_PRIVATE)
             var editor = preferences.edit()
             var latitude : String
@@ -154,6 +155,7 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
             var editor = preferences.edit()
             var latitude : String
             var longitude : String
+            Log.d(this.javaClass.name, "myLoc : ${preferences.getBoolean("myLoc", false)}")
             // Recover info from preferences
             if(preferences.getBoolean("myLoc", false)) {
                 latitude = Double.Companion.fromBits(preferences.getLong("myLat", 50.636842412658126.toRawBits())).toString()
@@ -204,5 +206,17 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
 
         startActivity(Intent(this, MapActivity::class.java))
         return
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // clear live datas
+        getSharedPreferences("datas", MODE_PRIVATE).edit().clear().commit()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // clear live datas
+        getSharedPreferences("datas", MODE_PRIVATE).edit().clear().commit()
     }
 }

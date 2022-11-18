@@ -67,11 +67,9 @@ class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment {
 
     override fun onStart() {
         super.onStart()
-        if(RestaurantsList.restaurants == null){
-            // Apply to the api
-            retrieveRestaurantsAsyncTask = RetrieveRestaurantsAsyncTask(this)
-            retrieveRestaurantsAsyncTask.execute(latitude, longitude)
-        }
+        // Apply to the api
+        retrieveRestaurantsAsyncTask = RetrieveRestaurantsAsyncTask(this)
+        retrieveRestaurantsAsyncTask.execute(latitude, longitude)
     }
 
     override fun onRestaurantRetrieved() {
@@ -82,6 +80,7 @@ class RestaurantFragmentRecyclerView : RestaurantChangeListener, Fragment {
 
         if(RestaurantsList.restaurants != null){
             recylerView.adapter = DetailsRecyclerViewAdapter(listener)
+            Log.d(this.javaClass.name, "got restau")
         }
     }
 
