@@ -24,7 +24,8 @@
         android:text="Connexion"
         android:layout_above="@id/emailTil"
         android:layout_marginBottom="20dp"
-        style="@style/TextAppearance.MaterialComponents.Headline4"/>
+        android:fontFamily="@font/Mainstay"
+        android:textSize="35dp"/>
 
     <!--
     <TextView
