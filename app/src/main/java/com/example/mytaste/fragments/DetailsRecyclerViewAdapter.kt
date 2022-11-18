@@ -1,10 +1,8 @@
 package com.example.mytaste.fragments
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytaste.R
@@ -23,8 +21,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<DetailsRecyclerViewAdapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val restaurant : Restaurant = RestaurantsList.restaurants!![position]
 
-        Log.d(this.javaClass.name, "Start holder")
-
+        // Fill TextViews with data
         holder.name.text = restaurant.name
         holder.address.text = restaurant.address
         holder.description.text = restaurant.description
@@ -35,6 +32,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<DetailsRecyclerViewAdapt
     }
 
     override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : ViewHolder {
+        // Need a new Holder
         var view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_details, parent, false)
         return ViewHolder(view)
     }
@@ -53,6 +51,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<DetailsRecyclerViewAdapt
         lateinit var item : Restaurant
 
         constructor(view : View) : super(view) {
+            // Retrieve all fields to be filled
             name = view.findViewById(R.id.restoNameValue) as TextView
             address = view.findViewById(R.id.restoAddressValue) as TextView
             description = view.findViewById(R.id.restoDescriptionValue) as TextView
@@ -63,6 +62,7 @@ class DetailsRecyclerViewAdapter : RecyclerView.Adapter<DetailsRecyclerViewAdapt
 
             button.setOnClickListener {
                 if (mListener != null) {
+                    // If you click on the button you will be redirected to the map
                     mListener.onGoMap(item)
                 }
             }

@@ -104,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUser() {
-        //if already logged in go to profile
+        //if already logged in go to list
         //get current user
         val firebaseUser = firebaseAuth.currentUser
         if (firebaseUser != null){

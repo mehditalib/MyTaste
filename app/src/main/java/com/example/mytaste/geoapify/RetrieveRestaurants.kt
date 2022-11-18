@@ -1,14 +1,7 @@
 package com.example.mytaste.geoapify
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import android.content.SharedPreferences
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mytaste.BuildConfig.DEBUG
 import com.example.mytaste.pojo.Restaurant
-import com.example.mytaste.pojo.RestaurantsList
-import com.example.mytaste.utils.MyTasteApplication
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -16,26 +9,13 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
 import org.osmdroid.util.GeoPoint
-import kotlin.properties.Delegates
 
 
 class RetrieveRestaurants {
-    val TAG = "RetrieveRestaurants"
     lateinit var context : Context
 
     fun getCurrentRestaurants(latitude : Double, longitude : Double) : MutableList<Restaurant> {
-
-        //var preferences: SharedPreferences? = MyTasteApplication().getPreferences()
-        /*var latitude : Double = 50.636842412658126
-        var longitude : Double = 3.06359138720470*/
-
-        /*if (preferences != null && preferences!!.getBoolean("myLoc", false)) {
-            latitude = Double.Companion.fromBits(preferences!!.getLong("centerLat", 50.636842412658126.toRawBits()))
-            longitude = Double.Companion.fromBits(preferences!!.getLong("centerLon", 3.0635913872047054.toRawBits()))
-        }*/
-
-        Log.d(TAG, "Start API get Resto $latitude $longitude")
-
+        // request settings  Find 200 restaurants in a large zoe around the center
         var client = OkHttpClient().newBuilder().build()
         var lat1 = latitude - 1
         var lat2 = latitude + 1
@@ -53,6 +33,7 @@ class RetrieveRestaurants {
         var datas = jsonObj.getJSONArray("features")
         var restaurantsList : MutableList<Restaurant> = mutableListOf<Restaurant>()
 
+        // Recover data for the application
         for(i in 0 until datas.length()){
             var elem = datas[i] as JSONObject
             if(elem.has("type") && elem.get("type") == "Feature" && elem.has("properties")) {
@@ -94,6 +75,4 @@ class RetrieveRestaurants {
 
         return restaurantsList
     }
-    //2.0635913872047054,49.636842412658126,4.0635913872047054,51.636842412658126
-    //https://api.geoapify.com/v2/places?categories=catering.restaurant&limit=20&filter=rect:2.0635913872047054,49.636842412658126,4.0635913872047054,51.636842412658126&apiKey=a334d23b1ca34d7fa7bcdc660a9d4813
 }
