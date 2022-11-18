@@ -7,20 +7,31 @@
     android:padding="20dp"
     tools:context=".utils.SignUpActivity">
 
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/mytaste_logo"
+        android:adjustViewBounds="true"/>
+
     <TextView
         android:id="@+id/titleLabelTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_above="@id/subTitleTv"
         android:text="Inscription"
         style="@style/TextAppearance.MaterialComponents.Headline4"/>
 
     <TextView
+        android:id="@+id/subTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Créer un nouveau compte"
-        android:layout_below="@id/titleLabelTv"
+        android:layout_above="@id/emailTil"
+        android:layout_marginBottom="20dp"
         style="@style/TextAppearance.MaterialComponents.Caption"/>
 
     <!--Identifiant-->
@@ -28,9 +39,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTil"
         android:layout_above="@id/passwordTil"
-        android:layout_marginBottom="10dp"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle">
 
         <EditText
             android:id="@+id/emailEt"
@@ -47,7 +59,8 @@
         app:passwordToggleEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:background="@drawable/rectangle">
 
         <EditText
             android:id="@+id/passwordEt"
@@ -65,7 +78,8 @@
         android:layout_height="wrap_content"
         android:text="S'inscrire"
         android:layout_below="@id/passwordTil"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#43ab0c"/>
 
 
 </RelativeLayout>
