@@ -9,19 +9,19 @@
 
     <TextView
         android:id="@+id/titleLabelTv"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Connexion"
-        style="@style/TextAppearance.MaterialComponents.Headline4"/>
+        android:text="@string/connexion" />
 
     <TextView
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Connectez vous à votre compte"
         android:layout_below="@id/titleLabelTv"
-        style="@style/TextAppearance.MaterialComponents.Caption"/>
+        android:layout_centerHorizontal="true"
+        android:text="@string/description_login_text" />
 
     <!--Identifiant-->
 
@@ -36,8 +36,8 @@
             android:id="@+id/emailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"/>
+            android:hint="@string/email_input"
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,8 +53,8 @@
             android:id="@+id/passwordEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Mot de Passe"/>
+            android:hint="@string/password_input"
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,19 +63,19 @@
         android:id="@+id/LoginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Se connecter"
         android:layout_below="@id/passwordTil"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:text="@string/submit_button_connection" />
     <!--Créer compte-->
     <TextView
         android:id="@+id/NoAccountTv"
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Créer un nouveau compte"
         android:layout_alignParentBottom="true"
-        android:padding="5dp"
         android:layout_centerHorizontal="true"
-        style="@style/TextAppearance.MaterialComponents.Caption"/>
+        android:padding="5dp"
+        android:text="@string/create_account_proposition" />
 
 
 </RelativeLayout>

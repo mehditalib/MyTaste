@@ -18,10 +18,28 @@
     <string name="detail_email_fragment">Mail : </string>
     <string name="detail_website_fragment">Site : </string>
     <string name="detail_phone_fragment">Appeler : </string>
+    <string name="restaurant_name">Nom du restaurant</string>
+    <string name="restaurant_address">Adresse du restaurant</string>
+    <string name="restaurant_description">Description du restaurant</string>
+    <string name="restaurant_email">Email du restaurant</string>
+    <string name="restaurant_website">Site internet du restaurant</string>
+    <string name="restaurant_phone_number">Téléphone du restaurant</string>
 
     <!-- String used for activity_main -->
     <string name="disconnect_button">Déconnexion</string>
     <string name="go_map_button">Voir la carte</string>
     <string name="find_my_restaurants">Trouver les restaurants autour de moi</string>
 
+    <!-- String used for activity_login -->
+    <string name="connexion">Connexion</string>
+    <string name="description_login_text">Connectez vous à votre compte</string>
+    <string name="submit_button_connection">Se connecter</string>
+    <string name="create_account_proposition">Créer un nouveau compte</string>
+    <string name="email_input">Email</string>
+    <string name="password_input">Mot de Passe</string>
+
+    <!-- String used for sing_up_activity -->
+    <string name="inscriotion">Inscription</string>
+    <string name="description_sing_up_text">Créer un nouveau compte</string>
+    <string name="submit_button_sing_up">S\'inscrire</string>
 </resources>
