@@ -22,7 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/subTitleTv"
         android:text="@string/inscriotion"
-        android:fontFamily="@font/Mainstay"
+        android:fontFamily="@font/mainstay2"
         android:textSize="35dp"/>
 
     <TextView
@@ -40,10 +40,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTil"
         android:layout_above="@id/passwordTil"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle">
+        android:background="@drawable/rectangle"
+            tools:ignore="NotSibling">
 
         <EditText
             android:id="@+id/emailEt"

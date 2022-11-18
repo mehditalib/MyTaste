@@ -10,7 +10,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.mytaste.R
-import com.example.mytaste.databinding.ActivityListBinding
+import com.example.mytaste.databinding. ActivityListBinding
 import com.example.mytaste.fragments.RestaurantFragmentRecyclerView
 import com.example.mytaste.interfaces.RestaurantListener
 import com.example.mytaste.pojo.Restaurant

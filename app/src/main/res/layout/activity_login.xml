@@ -22,10 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/connexion" />
+        android:text="@string/connexion"
         android:layout_above="@id/emailTil"
         android:layout_marginBottom="20dp"
-        android:fontFamily="@font/Mainstay"
+        android:fontFamily="@font/mainstay2"
         android:textSize="35dp"/>
 
     <!--
@@ -92,7 +92,6 @@
         style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/noAccountText"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
