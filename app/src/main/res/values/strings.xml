@@ -35,7 +35,7 @@
     <string name="connexion">Connexion</string>
     <string name="description_login_text">Connectez vous à votre compte</string>
     <string name="submit_button_connection">Se connecter</string>
-    <string name="create_account_proposition">Créer un nouveau compte</string>
+    <string name="create_account_proposition">Pas de compte?<b>S'inscrire></b></string>
     <string name="email_input">Email</string>
     <string name="password_input">Mot de Passe</string>
 
