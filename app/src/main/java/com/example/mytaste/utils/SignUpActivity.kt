@@ -1,13 +1,22 @@
 package com.example.mytaste.utils
 
+import android.app.ProgressDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
+import android.util.Patterns
+import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import com.example.mytaste.R
+import com.example.mytaste.databinding.ActivitySignUpBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity : AppCompatActivity() {
 
     //ViewBinding
-    private lateinit var binding:ActivitySignUpBinding
+    private lateinit var binding: ActivitySignUpBinding
 
     //ActionBar
     private lateinit var actionBar: ActionBar
@@ -85,14 +94,17 @@ class SignUpActivity : AppCompatActivity() {
                 val email = firebaseUser!!.email
                 Toast.makeText(this, "Compte crée avec succès!", Toast.LENGTH_SHORT).show()
 
-                //open profile
-                startActivity(Intent(this, ProfileActivity::class.java))
+                //open list
+                val intent = Intent(this, ListActivity::class.java)
+                intent.putExtras(Bundle())
+                startActivity(intent)
                 finish()
 
             }
             .addOnFailureListener { e->
                 //signup fail
                 progressDialog.dismiss()
+                Log.d(this.javaClass.name, "Echec : ${e.message}")
                 Toast.makeText(this, "Echec de l'inscription à cause de ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }

@@ -2,19 +2,20 @@ package com.example.mytaste.utils
 
 import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
-import com.example.mytaste.R
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mytaste.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginActivity : AppCompatActivity() {
 
     //ViewBinding
-    private lateinit var binding:ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     //ActionBar
     private lateinit var actionBar: ActionBar
@@ -90,8 +91,10 @@ class LoginActivity : AppCompatActivity() {
                 val firebaseUser = firebaseAuth.currentUser
                 val emal = firebaseUser!!.email
                 Toast.makeText(this, "Connecté en tant que $email", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, ProfileActivity::class.java))
-                finish()
+                val intent = Intent(this, ListActivity::class.java)
+                intent.putExtras(Bundle())
+                startActivity(intent)
+                //finish()
             }
             .addOnFailureListener { e->
                 //login fail
@@ -106,8 +109,20 @@ class LoginActivity : AppCompatActivity() {
         val firebaseUser = firebaseAuth.currentUser
         if (firebaseUser != null){
             //user already logged in
-            startActivity(Intent(this,ProfileActivity::class.java))
-            finish()
+            val intent = Intent(this, ListActivity::class.java)
+            intent.putExtras(Bundle())
+            startActivity(intent)
+            //finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        email = ""
+        password = ""
+        binding.emailEt.text.clear()
+        binding.passwordEt.text.clear()
+        binding.emailEt.clearFocus()
+        binding.passwordEt.clearFocus()
     }
 }

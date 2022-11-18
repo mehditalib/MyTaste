@@ -6,9 +6,11 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.mytaste.R
+import com.example.mytaste.databinding.ActivityProfileBinding
 import com.example.mytaste.fragments.RestaurantFragmentRecyclerView
 import com.example.mytaste.interfaces.RestaurantListener
 import com.example.mytaste.pojo.Restaurant
@@ -18,6 +20,7 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
+import com.google.firebase.auth.FirebaseAuth
 
 
 class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListener{
@@ -26,9 +29,31 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
     lateinit var fusedLocationProviderClient : FusedLocationProviderClient
     lateinit var restaurantFragmentRecyclerView: RestaurantFragmentRecyclerView
 
+    //ViewBinding
+    private lateinit var binding: ActivityProfileBinding
+
+    //ActionBar
+    private lateinit var actionBar: ActionBar
+
+    //FirebaseAuth
+    private lateinit var firebaseAuth: FirebaseAuth
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maintmp)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_main)
+
+        Log.d(this.javaClass.name, "${binding.root} ${binding.root.id}")
+
+        //config ActionBar
+        actionBar = supportActionBar!!
+        actionBar.title = "My Taste"
+
+
+        //init firebaseAuth
+        firebaseAuth = FirebaseAuth.getInstance()
+        checkUser()
 
         var intent = intent
         if (intent != null) {
@@ -47,6 +72,15 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
     override fun onStart() {
         super.onStart()
         getLocation()
+    }
+
+    private fun checkUser() {
+        //check user login status
+        if (firebaseAuth.currentUser == null){
+            //user not logged in
+            //startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
     }
 
     private fun getLocation() {
@@ -107,8 +141,8 @@ class ListActivity : AppCompatActivity(), RestaurantListener, View.OnClickListen
 
     override fun onClick(view: View) {
         if (view == findViewById(R.id.buttonDisconnect)) {
-            TODO("Implement logout")
-            return
+            firebaseAuth.signOut()
+            checkUser()
         }
         else if (view == findViewById(R.id.buttonGoToMap)) {
             var preferences = this.getSharedPreferences("datas", MODE_PRIVATE)

@@ -36,6 +36,9 @@ class MapActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //config ActionBar
+        supportActionBar!!.title= "Carte"
+
         Log.d(this.javaClass.name, "Call constructor")
 
         Configuration.getInstance().load(applicationContext, PreferenceManager.getDefaultSharedPreferences(applicationContext))
